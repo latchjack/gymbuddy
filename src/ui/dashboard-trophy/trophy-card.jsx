@@ -4,8 +4,8 @@ import { TrophyIcon } from '@heroicons/react/20/solid';
 
 const TrophyCard = () => {
   return (
-    <div className="border border-stone-900 rounded-lg min-w-xl max-w-3xl h-52 relative">
-      Last unlock
+    <div className="border border-stone-900 rounded-lg min-w-xl max-w-3xl h-52 relative  p-4 px-6">
+      <p className="text-xl text-indigo-600">Latest Unlock</p>
       <div></div>
       <div></div>
       <TrophyIcon
