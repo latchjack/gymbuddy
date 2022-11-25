@@ -1,9 +1,6 @@
-UNSORTED:
-☐ need json data for mocking endpoint data.
-☐ create user mock data.
-☐ integrate page-wrapper and layout components.
-☐ create random welcome headers "train hard", "keep pushing", "stay hungry" etc.
-☐ create individual layouts for pages that can fit inside layout component.
+DASHBOARD:
+☐ add panel component.
+☐ fix icons positions
 
 SIDEBAR:
 ☐ share navigation and open state instead of having both written in two different places.
@@ -22,3 +19,10 @@ SETTINGS:
 TROPHIES:
 
 PROFILE:
+
+UNSORTED:
+☐ need json data for mocking endpoint data.
+☐ create user mock data.
+☐ integrate page-wrapper and layout components.
+☐ create random welcome headers "train hard", "keep pushing", "stay hungry" etc.
+☐ create individual layouts for pages that can fit inside layout component.
