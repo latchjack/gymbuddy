@@ -2,11 +2,13 @@ import React from 'react';
 // import { RocketLaunchIcon } from '@heroicons/react/20/solid';
 
 const PersonalRecordCard = () => {
-    // const mobileStyles= ''
-    // const desktopStyles= ''
     // min-w-xl max-w-3xl
     return (
-        <div className="border bg-red-600 rounded-lg relative p-4 px-6 row-start-1 row-end-2 col-start-3 col-end-7">
+        <div
+            className={
+                'border bg-red-600 rounded-lg relative p-4 px-6 col-start-1 col-end-3 xl:row-start-1 xl:row-end-2 xl:col-start-3 xl:col-end-5'
+            }
+        >
             <p className="text-xl text-indigo-600">
                 Most Recent Personal Records
             </p>

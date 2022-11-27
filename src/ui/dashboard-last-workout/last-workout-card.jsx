@@ -7,7 +7,10 @@ import React from 'react';
 const LastWorkoutCard = () => {
     // line-clamp-3
     return (
-        <div className="bg-purple-600 border border-stone-800 rounded-lg min-w-xl max-w-3xl relative p-4 px-6 xl:row-start-2 xl:row-end-7 col-start-3 col-end-7">
+        <div
+            className="bg-purple-600 border rounded-lg relative p-4 px-6 col-start-1 col-end-3 xl:row-start-2 xl:row-end-5 xl:col-start-3 xl:col-end-5"
+            // className="bg-purple-600 border border-stone-800 rounded-lg min-w-xl max-w-3xl relative p-4 px-6 xl:row-start-2 xl:row-end-7 col-start-3 col-end-7"
+        >
             <div>
                 <p className="text-xl text-indigo-600">
                     Last Workout Completed

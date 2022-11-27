@@ -4,7 +4,10 @@ import React from 'react';
 // TODO: make the height double of pr and unlock cards
 const WorkoutTodayCard = () => {
     return (
-        <div className="border bg-purple-600 rounded-lg min-w-xl max-w-3xl relative p-4 px-6 xl:row-start-1 xl:row-end-3 xl:col-start-1 xl:col-end-3">
+        <div
+            className="border bg-purple-600 rounded-lg relative p-4 px-6 col-start-1 col-end-3 xl:row-start-1 xl:row-end-3 xl:col-start-1 xl:col-end-3"
+            // className="border bg-purple-600 rounded-lg min-w-xl max-w-3xl relative p-4 px-6 xl:row-start-1 xl:row-end-3 xl:col-start-1 xl:col-end-3"
+        >
             <p className="text-xl text-indigo-600">Today&apos;s workout card</p>
             <div>
                 <p>Its: Leg Day!</p>
