@@ -8,10 +8,10 @@ import Layout from '../ui/layout/layout';
 function DashboardPage() {
     const borderStyles = 'border bg-stone-900 rounded-lg p-4 px-6 relative';
     // TODO - design and add tablet layout
-    const tabletLayout = 'gap-3 grid-cols-2 grid-rows-4';
+    // const tabletLayout = 'gap-3 grid-cols-2 grid-rows-4';
     return (
         <Layout>
-            <div className="grid  gap-2 grid-cols-2 grid-rows-4 xl:gap-4 xl:grid-cols-4 xl:grid-rows-3">
+            <div className="grid gap-2 grid-cols-2 grid-rows-4 xl:gap-4 xl:grid-cols-4 xl:grid-rows-3">
                 <WorkoutTodayCard borderStyles={borderStyles} />
                 <TrophyCard borderStyles={borderStyles} />
                 <PersonalRecordCard borderStyles={borderStyles} />
