@@ -1,16 +1,32 @@
 import React from 'react';
+import FormButton from '../ui/form-button/form-button';
+import FormCheckbox from '../ui/form-checkbox/form-checkbox';
+import FormInput from '../ui/form-input/form-input';
+import PocketBase from 'pocketbase';
+
+const pb = new PocketBase('http://127.0.0.1:8090');
 
 function LoginPage() {
+    const handleSignIn = () => {
+        console.log('sign in');
+        const authData = pb.admins.authWithPassword(
+            'test@example.com',
+            '1234567890'
+        );
+        console.log(authData);
+        return authData;
+    };
+
     return (
         <>
             <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
                     <img
-                        className="mx-auto h-12 w-auto"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                        alt="Your Company"
+                        className="mx-auto h-36 w-auto mb-0"
+                        src="/src/assets/hand-holding-dumbbell-front.png"
+                        alt="Active logo"
                     />
-                    <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+                    <h2 className="mt-0 text-center text-3xl font-bold tracking-tight text-gray-900">
                         Sign in to your account
                     </h2>
                     <p className="mt-2 text-center text-sm text-gray-600">
@@ -27,60 +43,33 @@ function LoginPage() {
                 <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
                     <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
                         <form className="space-y-6" action="#" method="POST">
-                            <div>
-                                <label
-                                    htmlFor="email"
-                                    className="block text-sm font-medium text-gray-700"
-                                >
-                                    Email address
-                                </label>
-                                <div className="mt-1">
-                                    <input
-                                        id="email"
-                                        name="email"
-                                        type="email"
-                                        autoComplete="email"
-                                        required
-                                        className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                    />
-                                </div>
-                            </div>
+                            <FormInput
+                                htmlFor="email"
+                                label="Email address"
+                                id="email"
+                                name="email"
+                                type="email"
+                                autoComplete="email"
+                                required
+                            />
 
-                            <div>
-                                <label
-                                    htmlFor="password"
-                                    className="block text-sm font-medium text-gray-700"
-                                >
-                                    Password
-                                </label>
-                                <div className="mt-1">
-                                    <input
-                                        id="password"
-                                        name="password"
-                                        type="password"
-                                        autoComplete="current-password"
-                                        required
-                                        className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                    />
-                                </div>
-                            </div>
+                            <FormInput
+                                htmlFor="password"
+                                label="Password"
+                                id="password"
+                                name="password"
+                                type="password"
+                                autoComplete="current-password"
+                                required
+                            />
 
                             <div className="flex items-center justify-between">
-                                <div className="flex items-center">
-                                    <input
-                                        id="remember-me"
-                                        name="remember-me"
-                                        type="checkbox"
-                                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                    />
-                                    <label
-                                        htmlFor="remember-me"
-                                        className="ml-2 block text-sm text-gray-900"
-                                    >
-                                        Remember me
-                                    </label>
-                                </div>
-
+                                <FormCheckbox
+                                    id="remember-me"
+                                    name="remember-me"
+                                    htmlFor="remember-me"
+                                    label="Remember me"
+                                />
                                 <div className="text-sm">
                                     <a
                                         href="#"
@@ -92,12 +81,10 @@ function LoginPage() {
                             </div>
 
                             <div>
-                                <button
-                                    type="submit"
-                                    className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                                >
-                                    Sign in
-                                </button>
+                                <FormButton
+                                    label="Sign in"
+                                    onClick={handleSignIn}
+                                />
                             </div>
                         </form>
                     </div>
