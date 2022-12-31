@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Route } from 'wouter';
 
 import DashboardPage from './pages/dashboard-page';
 import ExercisesPage from './pages/exercises-page';
 import TrophiesPage from './pages/trophies-page';
 import LoginPage from './pages/login-page';
+import { AuthContext } from './context/auth-context';
 
 const Routes = () => {
+    const { isAuthenticated } = useContext(AuthContext);
+    console.log('is authenticated', isAuthenticated);
+    // TODO: if not authenticated, redirect to login page.
+
     return (
         <div>
             {/* <Link href="/">

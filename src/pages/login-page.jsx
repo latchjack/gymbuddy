@@ -1,21 +1,53 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import FormButton from '../ui/form-button/form-button';
-import FormCheckbox from '../ui/form-checkbox/form-checkbox';
 import FormInput from '../ui/form-input/form-input';
-import PocketBase from 'pocketbase';
-
-const pb = new PocketBase('http://127.0.0.1:8090');
+import pb from '../pocketbase';
+import { AccessTokenContext } from '../context/access-token-context';
 
 function LoginPage() {
+    const { accessToken, setAccessToken } = useContext(AccessTokenContext);
+    // const { setUser } = useContext(UserContext);
+    const [formData, setFormData] = useState();
+    console.log('accessToken -', accessToken);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    useEffect(() => {
+        if (pb.authStore.isValid) {
+            pb.authStore.clear();
+        }
+    }, []);
+
+    useEffect(() => {
+        if (accessToken) {
+            console.log('redirect');
+        }
+    }, [accessToken]);
+
+    // .authWithPassword(
+    //     import.meta.env.VITE_USER_EMAIL,
+    //     import.meta.env.VITE_USER_PASSWORD
+    // )
+
+    // TODO - can authWithPassword take an object or only strings?
     const handleSignIn = () => {
-        console.log('sign in');
-        const authData = pb.admins.authWithPassword(
-            'test@example.com',
-            '1234567890'
-        );
-        console.log(authData);
+        const authData = pb
+            .collection('users')
+            .authWithPassword(formData.username, formData.password)
+            .then((res) => {
+                console.log(res);
+                localStorage.setItem('access_token', res.token);
+                setAccessToken(res.token);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
         return authData;
     };
+    console.log(pb.authStore.isValid, pb.authStore.token);
 
     return (
         <>
@@ -32,7 +64,7 @@ function LoginPage() {
                     <p className="mt-2 text-center text-sm text-gray-600">
                         Or{' '}
                         <a
-                            href="#"
+                            href="/register"
                             className="font-medium text-indigo-600 hover:text-indigo-500"
                         >
                             Register
@@ -51,6 +83,7 @@ function LoginPage() {
                                 type="email"
                                 autoComplete="email"
                                 required
+                                onChange={handleChange}
                             />
 
                             <FormInput
@@ -61,24 +94,8 @@ function LoginPage() {
                                 type="password"
                                 autoComplete="current-password"
                                 required
+                                onChange={handleChange}
                             />
-
-                            <div className="flex items-center justify-between">
-                                <FormCheckbox
-                                    id="remember-me"
-                                    name="remember-me"
-                                    htmlFor="remember-me"
-                                    label="Remember me"
-                                />
-                                <div className="text-sm">
-                                    <a
-                                        href="#"
-                                        className="font-medium text-indigo-600 hover:text-indigo-500"
-                                    >
-                                        Forgot your password?
-                                    </a>
-                                </div>
-                            </div>
 
                             <div>
                                 <FormButton
