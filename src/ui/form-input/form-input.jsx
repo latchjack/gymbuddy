@@ -10,7 +10,8 @@ const FormInput = ({
     type,
     autoComplete,
     required,
-    onChange
+    onChange,
+    ...restProps
 }) => {
     return (
         <>
@@ -29,6 +30,7 @@ const FormInput = ({
                         autoComplete={autoComplete}
                         required={required}
                         onChange={onChange}
+                        {...restProps}
                     />
                 </div>
             </div>

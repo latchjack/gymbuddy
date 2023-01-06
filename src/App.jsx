@@ -9,9 +9,8 @@ import { AuthContextProvider } from './context/auth-context';
 import { AccessTokenProvider } from './context/access-token-context';
 
 function App() {
-    const [match, params] = useRoute('/login');
+    const [match] = useRoute('/login');
 
-    console.log(match, params);
     return (
         <div>
             <AuthContextProvider>
@@ -19,9 +18,11 @@ function App() {
                     <div>
                         {!match && <SidebarMobile navigation={navigation} />}
                         {!match && <Sidebar navigation={navigation} />}
-                        <div className="flex flex-1 flex-col md:pl-60">
-                            <PageWrapper></PageWrapper>
-                        </div>
+                        {!match && (
+                            <div className="flex flex-1 flex-col md:pl-60">
+                                <PageWrapper header="Welcome Latch" />
+                            </div>
+                        )}
                     </div>
                     <Routes />
                 </AccessTokenProvider>

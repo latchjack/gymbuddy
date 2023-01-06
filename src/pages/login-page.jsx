@@ -3,11 +3,15 @@ import FormButton from '../ui/form-button/form-button';
 import FormInput from '../ui/form-input/form-input';
 import pb from '../pocketbase';
 import { AccessTokenContext } from '../context/access-token-context';
+import { AuthContext } from '../context/auth-context';
+import { Redirect } from 'wouter';
 
 function LoginPage() {
+    const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
     const { accessToken, setAccessToken } = useContext(AccessTokenContext);
     // const { setUser } = useContext(UserContext);
     const [formData, setFormData] = useState();
+
     console.log('accessToken -', accessToken);
 
     const handleChange = (e) => {
@@ -18,36 +22,34 @@ function LoginPage() {
     useEffect(() => {
         if (pb.authStore.isValid) {
             pb.authStore.clear();
+            setIsAuthenticated(false);
         }
     }, []);
 
     useEffect(() => {
-        if (accessToken) {
-            console.log('redirect');
+        if (accessToken || isAuthenticated) {
+            localStorage.removeItem('access-token');
+            setIsAuthenticated(false);
         }
     }, [accessToken]);
 
-    // .authWithPassword(
-    //     import.meta.env.VITE_USER_EMAIL,
-    //     import.meta.env.VITE_USER_PASSWORD
-    // )
-
     // TODO - can authWithPassword take an object or only strings?
     const handleSignIn = () => {
-        const authData = pb
-            .collection('users')
-            .authWithPassword(formData.username, formData.password)
+        const { username, password } = formData;
+        // const authData = pb
+        pb.collection('users')
+            // .authWithPassword()
+            .authWithPassword(username, password)
             .then((res) => {
-                console.log(res);
                 localStorage.setItem('access_token', res.token);
                 setAccessToken(res.token);
+                return <Redirect to="/" />;
             })
             .catch((err) => {
                 console.log(err);
             });
-        return authData;
+        // return authData;
     };
-    console.log(pb.authStore.isValid, pb.authStore.token);
 
     return (
         <>
@@ -74,7 +76,12 @@ function LoginPage() {
 
                 <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
                     <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-                        <form className="space-y-6" action="#" method="POST">
+                        {/* <form className="space-y-6" action="#" method="POST"> */}
+                        <form
+                            className="space-y-6"
+                            onSubmit={handleSignIn}
+                            method="POST"
+                        >
                             <FormInput
                                 htmlFor="email"
                                 label="Email address"
@@ -84,6 +91,7 @@ function LoginPage() {
                                 autoComplete="email"
                                 required
                                 onChange={handleChange}
+                                autoFocus
                             />
 
                             <FormInput
@@ -98,10 +106,7 @@ function LoginPage() {
                             />
 
                             <div>
-                                <FormButton
-                                    label="Sign in"
-                                    onClick={handleSignIn}
-                                />
+                                <FormButton label="Sign in" />
                             </div>
                         </form>
                     </div>

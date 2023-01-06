@@ -1,17 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Route } from 'wouter';
 
+import PrivateRoute from './private-route';
 import DashboardPage from './pages/dashboard-page';
 import ExercisesPage from './pages/exercises-page';
 import TrophiesPage from './pages/trophies-page';
 import LoginPage from './pages/login-page';
-import { AuthContext } from './context/auth-context';
+import PageNotFound from './pages/404-page';
 
 const Routes = () => {
-    const { isAuthenticated } = useContext(AuthContext);
-    console.log('is authenticated', isAuthenticated);
-    // TODO: if not authenticated, redirect to login page.
-
     return (
         <div>
             {/* <Link href="/">
@@ -26,16 +23,18 @@ const Routes = () => {
       <Link href="/about">
         <a className="link">About</a>
       </Link> */}
-            <Route path="/" component={DashboardPage} />
-            <Route path="/exercises" component={ExercisesPage} />
-            <Route path="/workouts" />
-            <Route path="/progress" />
-            <Route path="/calendar" />
-            <Route path="/profile" />
-            <Route path="/records" />
-            <Route path="/trophies" component={TrophiesPage} />
-            <Route path="/settings" />
+            <PrivateRoute path="/" component={DashboardPage} />
+            <PrivateRoute path="/exercises" component={ExercisesPage} />
+            <PrivateRoute path="/workouts" />
+            <PrivateRoute path="/progress" />
+            <PrivateRoute path="/calendar" />
+            <PrivateRoute path="/profile" />
+            <PrivateRoute path="/records" />
+            <PrivateRoute path="/trophies" component={TrophiesPage} />
+            <PrivateRoute path="/settings" />
+            <Route path="/register" component={LoginPage} />
             <Route path="/login" component={LoginPage} />
+            <PrivateRoute path="*" component={PageNotFound} />
         </div>
     );
 };
